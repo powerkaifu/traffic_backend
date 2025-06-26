@@ -2,33 +2,25 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from .ml.predictor import Predictor
+
+predictor = Predictor()  # 初始化一次
+
 
 class TrafficPrediction(APIView):
 
   def post(self, request):
-    """
-        預期接收前端送來四組路口特徵資料 (list of dict)
-        範例 request.data:
-        [
-            {"Speed": ..., "Occupancy": ..., "Volume_M": ..., ...},
-            {...}, {...}, {...}
-        ]
-
-        先回傳一個測試用的固定格式，之後你給我預測邏輯我幫你接入
-        """
     input_data = request.data
 
-    # 簡單檢查是否為 list 且長度是4
+    # 確認輸入是 list 且有四筆資料
     if not isinstance(input_data, list) or len(input_data) != 4:
-      return Response({ "error": "請送出四組路口特徵資料的列表"}, status = status.HTTP_400_BAD_REQUEST)
+      return Response({ "error": "請傳入四筆路口特徵資料的清單"}, status = status.HTTP_400_BAD_REQUEST)
 
-    # TODO: 之後實作預測邏輯
-    # 目前回傳固定結果，每組路口回傳一個模擬綠燈秒數
-    dummy_results = []
-    for i in range(4):
-      dummy_results.append({
-          "intersection_id": i + 1,
-          "predicted_green_seconds": 45  # 固定回傳 45 秒，待後續替換
-      })
+    # 使用預測器取得秒數
+    preds = predictor.predict_batch(input_data)  # e.g. array([秒數1, 秒數2, 秒數3, 秒數4])
 
-    return Response({ "predictions": dummy_results}, status = status.HTTP_200_OK)
+    # 東西向是第 0 與 2 筆，南北向是第 1 與 3 筆
+    east_west_max = max(preds[0], preds[2])
+    south_north_max = max(preds[1], preds[3])
+
+    return Response({ "east_west_seconds": int(east_west_max), "south_north_seconds": int(south_north_max)}, status = status.HTTP_200_OK)
