@@ -7,4 +7,3 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.10 # 強制指定 Python 版本
-      # 可在此添加其他環境變數，例如資料庫連線設定
