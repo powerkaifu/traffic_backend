@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,13 +35,13 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default = "unsafe-default")
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = env.bool("DEBUG", default = True)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default = [])
-
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 # ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "traffic_signal.apps.TrafficSignalConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  # 必須放在最上面
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -135,9 +137,14 @@ STATIC_URL = "/static/"
 # 不用設定 STATICFILES_DIRS，除非你有自己放靜態檔的需求
 STATICFILES_DIRS = []
 # 設定 STATIC_ROOT 方便 collectstatic 收集 admin 等靜態檔案，部署時用
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CORS 設定
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
