@@ -18,14 +18,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
+import sys
 
 
 def home(request):
   return HttpResponse("歡迎使用智慧交通號誌後端API")
 
 
+def python_version(request):
+  return HttpResponse(f"Python version: {sys.version}")
+
+
 urlpatterns = [
     path('', home),
     path("admin/", admin.site.urls),
     path('api/traffic/', include('traffic_signal.urls')),
+    path('python-version/', python_version),
 ]
