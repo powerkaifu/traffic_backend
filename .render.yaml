@@ -2,6 +2,6 @@ services:
   - type: web
     name: traffic_backend
     env: python
-    pythonVersion: 3.11
+    pythonVersion: 3.10
     buildCommand: pip3 install --upgrade -r requirements.txt
     startCommand: gunicorn traffic_main.wsgi:application --bind 0.0.0.0:8000
