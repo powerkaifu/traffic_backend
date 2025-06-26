@@ -2,6 +2,8 @@ services:
   - type: web
     name: traffic_backend
     env: python
+    region: singapore # 可选
+    plan: free # 免费方案
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn traffic_main.wsgi:application --bind 0.0.0.0:$PORT --timeout 120
     envVars:
@@ -9,5 +11,21 @@ services:
         value: 3.12.10
       - key: PORT
         value: 10000
-      - key: DJANGO_SETTINGS_MODULE
-        value: traffic_main.settings
+      - key: RENDER
+        value: 'true'
+      - key: DJANGO_SECRET_KEY
+        value: 'la=gcfcim*kui*5hb05u4tekt*4!a%)hyy@_r&uw=@9-@ot6g5'
+      - key: DEBUG
+        value: 'False'
+      - key: ALLOWED_HOSTS
+        value: 'traffic-backend-ejsn.onrender.com'
+      - key: DB_NAME
+        value: 'railway'
+      - key: DB_HOST
+        value: 'tramway.proxy.rlwy.net'
+      - key: DB_USER
+        value: 'root'
+      - key: DB_PASSWORD
+        value: 'FNFkQiBfpelQQtVGyMAArnVVLWZSQgir'
+      - key: DB_PORT
+        value: '58280'

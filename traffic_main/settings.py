@@ -27,7 +27,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="unsafe-default")
 DEBUG = env.bool("DEBUG", default=True)
 
 # 允許的主機設置（添加默認值）
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["traffic-backend-ejsn.onrender.com"])
 
 # 應用定義
 INSTALLED_APPS = [
