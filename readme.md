@@ -48,10 +48,6 @@
 
 - 產生 requirements.txt 套件清單，該檔案會與 manage.py 同目錄
 
-## 保留專案
-
-- 保留 traffic 專案整個目錄即可
-
 ## 離開虛擬環境
 
 - 到 traffic_env\Scripts 目錄下，執行 deactivate
@@ -61,6 +57,109 @@
   ```
 
 ---
+
+# 專案設定
+
+## 啟動伺服器
+
+- 到 traffic 目錄底下，執行以下指令啟動後端服務
+
+  ```
+  py manage.py runserver
+  ```
+
+- 開啟後端服務才能進行前端串接
+
+## 保留專案
+
+- 保留 traffic 專案整個目錄即可
+
+# 路口資料格式
+
+```json
+[
+	{
+		"VD_ID": "VLRJM20",
+		"DayOfWeek": 3,
+		"Hour": 23,
+		"Minute": 45,
+		"Second": 0,
+		"IsPeakHour": 0,
+		"LaneID": 2,
+		"LaneType": 1,
+		"Speed": 62,
+		"Occupancy": 7,
+		"Volume_M": 4,
+		"Speed_M": 58,
+		"Volume_S": 7,
+		"Speed_S": 65,
+		"Volume_L": 1,
+		"Speed_L": 55,
+		"Volume_T": 0,
+		"Speed_T": 0
+	},
+	{
+		"VD_ID": "VLRJM60",
+		"DayOfWeek": 1,
+		"Hour": 8,
+		"Minute": 15,
+		"Second": 0,
+		"IsPeakHour": 1,
+		"LaneID": 0,
+		"LaneType": 1,
+		"Speed": 14,
+		"Occupancy": 92,
+		"Volume_M": 32,
+		"Speed_M": 11,
+		"Volume_S": 45,
+		"Speed_S": 15,
+		"Volume_L": 9,
+		"Speed_L": 9,
+		"Volume_T": 4,
+		"Speed_T": 7
+	},
+	{
+		"VD_ID": "VLRJX00",
+		"DayOfWeek": 1,
+		"Hour": 13,
+		"Minute": 30,
+		"Second": 0,
+		"IsPeakHour": 0,
+		"LaneID": 1,
+		"LaneType": 1,
+		"Speed": 42,
+		"Occupancy": 33,
+		"Volume_M": 16,
+		"Speed_M": 40,
+		"Volume_S": 22,
+		"Speed_S": 45,
+		"Volume_L": 4,
+		"Speed_L": 32,
+		"Volume_T": 1,
+		"Speed_T": 28
+	},
+	{
+		"VD_ID": "VLRJX00",
+		"DayOfWeek": 2,
+		"Hour": 17,
+		"Minute": 50,
+		"Second": 0,
+		"IsPeakHour": 1,
+		"LaneID": 0,
+		"LaneType": 1,
+		"Speed": 11,
+		"Occupancy": 96,
+		"Volume_M": 38,
+		"Speed_M": 9,
+		"Volume_S": 50,
+		"Speed_S": 13,
+		"Volume_L": 11,
+		"Speed_L": 7,
+		"Volume_T": 5,
+		"Speed_T": 4
+	}
+]
+```
 
 # 套件列表
 
