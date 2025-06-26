@@ -1,3 +1,4 @@
+# settings.py
 """
 Django settings for traffic_main project.
 
@@ -25,12 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fj-$0fwg%2ak(234kgijo#(8ojvae&263zj%iqp5mf+tbuq%k4"
+# SECRET_KEY = "django-insecure-fj-$0fwg%2ak(234kgijo#(8ojvae&263zj%iqp5mf+tbuq%k4"
+SECRET_KEY = env("DJANGO_SECRET_KEY", default = "unsafe-default")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env.bool("DEBUG", default = True)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default = [])
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 # Application definition
 
