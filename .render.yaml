@@ -2,7 +2,7 @@ services:
   - type: web
     name: traffic_backend
     env: python
-    pythonVersion: 3.10
+    pythonVersion: 3.9
     buildCommand: |
       pip3 install --upgrade pip setuptools wheel
       pip3 install -r requirements.txt
