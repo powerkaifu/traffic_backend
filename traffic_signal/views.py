@@ -11,6 +11,7 @@ class TrafficPrediction(APIView):
 
   def post(self, request):
     input_data = request.data
+    print("收到的輸入資料:", input_data)
 
     # 確認輸入是 list 且有四筆資料
     if not isinstance(input_data, list) or len(input_data) != 4:
