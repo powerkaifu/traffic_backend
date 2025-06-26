@@ -3,7 +3,7 @@ services:
     name: traffic_backend
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn traffic_main.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 # 增加超时
+    startCommand: gunicorn traffic_main.wsgi:application --bind 0.0.0.0:$PORT --timeout 120
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.10
