@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from tensorflow.keras.models import load_model  # type: ignore
 
+
 class Predictor:
 
   def __init__(self):
