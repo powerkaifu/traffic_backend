@@ -80,9 +80,11 @@
 
 # API 測試
 
-## 預測綠燈秒數
+127.0.0.1:8000 為 Django 預設的開發伺服器網址
 
-http://127.0.0.1:8000/api/traffic/predict/
+- 預測綠燈秒數
+
+  POST http://127.0.0.1:8000/api/traffic/predict/
 
 # 路口資料格式（餵模型）
 
