@@ -3,7 +3,10 @@
 ## 建立 venv 虛擬環境
 
 - 到官網下載 Python 3.12 版本
+
   - https://www.python.org/downloads/release/python-3120/
+  - 安裝 3.12 版本時，請勾選「Add Python to PATH」
+
 - 建立 python 3.12 虛擬環境
 
   ```
@@ -30,7 +33,7 @@
   python -m pip install --upgrade pip
   ```
 
-## 安裝套件
+## 安裝套件(新環境)
 
 - 回到 traffic_env\traffic\ 目錄底下
 - 執行以下指令安裝套件
@@ -39,7 +42,7 @@
   pip install -r requirements.txt
   ```
 
-## 備份套件
+## 備份套件清單(用於新環境安裝)
 
 - 回到 traffic_env\traffic\ 目錄底下
 
@@ -75,7 +78,9 @@
 
 - 保留 traffic 專案整個目錄即可
 
-# 路口資料格式
+# 路口資料格式（餵模型）
+
+資料順序如下，往東、往西、往南、往北。
 
 | VD_ID   | 路段           | LinkID         | LaneNum |
 | ------- | -------------- | -------------- | ------- |
@@ -87,24 +92,24 @@
 ```json
 [
 	{
-		"VD_ID": "VLRJM20",
-		"DayOfWeek": 3,
-		"Hour": 23,
-		"Minute": 45,
-		"Second": 0,
-		"IsPeakHour": 0,
-		"LaneID": 2,
-		"LaneType": 1,
-		"Speed": 62,
-		"Occupancy": 7,
-		"Volume_M": 4,
-		"Speed_M": 58,
-		"Volume_S": 7,
-		"Speed_S": 65,
-		"Volume_L": 1,
-		"Speed_L": 55,
-		"Volume_T": 0,
-		"Speed_T": 0
+		"VD_ID": "VLRJM20", // 路段 ID
+		"DayOfWeek": 1, // 星期一
+		"Hour": 23, // 小時
+		"Minute": 45, // 分鐘
+		"Second": 0, // 秒數
+		"IsPeakHour": 0, // 是否為尖峰時段
+		"LaneID": 2, // 車道 ID
+		"LaneType": 1, // 車道類型
+		"Speed": 62, // 車速
+		"Occupancy": 7, // 車道佔用率
+		"Volume_M": 4, // 機車數量
+		"Speed_M": 58, // 機車平均車速
+		"Volume_S": 7, // 小客車數量
+		"Speed_S": 65, // 小客車平均車速
+		"Volume_L": 1, // 大客車數量
+		"Speed_L": 55, // 大客車平均車速
+		"Volume_T": 0, // 聯結車數量
+		"Speed_T": 0 // 聯結車平均車速
 	},
 	{
 		"VD_ID": "VLRJM60",
@@ -123,8 +128,8 @@
 		"Speed_S": 15,
 		"Volume_L": 9,
 		"Speed_L": 9,
-		"Volume_T": 4,
-		"Speed_T": 7
+		"Volume_T": 0,
+		"Speed_T": 0
 	},
 	{
 		"VD_ID": "VLRJX00",
@@ -143,12 +148,12 @@
 		"Speed_S": 45,
 		"Volume_L": 4,
 		"Speed_L": 32,
-		"Volume_T": 1,
-		"Speed_T": 28
+		"Volume_T": 0,
+		"Speed_T": 0
 	},
 	{
 		"VD_ID": "VLRJX00",
-		"DayOfWeek": 2,
+		"DayOfWeek": 1,
 		"Hour": 17,
 		"Minute": 50,
 		"Second": 0,
@@ -163,8 +168,8 @@
 		"Speed_S": 13,
 		"Volume_L": 11,
 		"Speed_L": 7,
-		"Volume_T": 5,
-		"Speed_T": 4
+		"Volume_T": 0,
+		"Speed_T": 0
 	}
 ]
 ```
