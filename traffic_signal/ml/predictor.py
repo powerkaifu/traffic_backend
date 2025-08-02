@@ -1,5 +1,4 @@
 import os
-import json
 import joblib
 import numpy as np
 import pandas as pd
@@ -68,7 +67,23 @@ class Predictor:
 
     # 數值型特徵
     numerical_features_to_scale = [
-        'Speed', 'Occupancy', 'Volume_M', 'Volume_S', 'Volume_L', 'Volume_T', 'Speed_M', 'Speed_S', 'Speed_L', 'Speed_T', 'DayOfWeek', 'Hour', 'Minute', 'Second', 'LaneID', 'LaneType', 'IsPeakHour'
+        'Speed',
+        'Occupancy',
+        'Volume_M',
+        'Volume_S',
+        'Volume_L',
+        'Volume_T',
+        'Speed_M',
+        'Speed_S',
+        'Speed_L',
+        'Speed_T',
+        'DayOfWeek',
+        'Hour',
+        'Minute',
+        'Second',
+        'LaneID',
+        'LaneType',
+        'IsPeakHour',
     ]
     existing_numerical = [ f for f in numerical_features_to_scale if f in new_data_df_processed.columns ]
     new_data_df_processed[existing_numerical] = new_data_df_processed[existing_numerical].astype(float)
@@ -86,7 +101,7 @@ class Predictor:
 
     return X_new_final.values.astype(float)
 
-  def predict_with_clipping(self, X_new_data, min_val = 20.0, max_val = 99.0):
+  def predict_with_clipping(self, X_new_data, min_val = 40.0, max_val = 99.0):
     predicted = self.model.predict(X_new_data)
     clipped = np.clip(predicted, min_val, max_val)
     final = np.round(clipped).astype(int)

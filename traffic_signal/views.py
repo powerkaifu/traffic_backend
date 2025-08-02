@@ -16,7 +16,8 @@ class TrafficPrediction(APIView):
       return Response({ "error": "請傳入四筆路口特徵資料的清單"}, status = status.HTTP_400_BAD_REQUEST)
 
     # 使用預測器取得秒數
-    preds = predictor.predict_batch(input_data)  # e.g. array([秒數1, 秒數2, 秒數3, 秒數4])
+    print("收到的輸入資料:", input_data)
+    preds = predictor.predict_batch(input_data)  # e.g. array([東_秒數1, 西_秒數2, 南_秒數3, 北_秒數4])
 
     # 東西向是第 0 與 1 筆，南北向是第 2 與 3 筆
     east_west_max = max(preds[0], preds[1])
