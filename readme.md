@@ -23,6 +23,8 @@
 
 - 確定進入虛擬環境 (traffic_env)
 
+  終端機會顯示 (traffic_env)，如下，後面是當前目錄路徑
+
   ```
   (traffic_env) D:\01.Project\traffic\traffic_project\backend\traffic_env\traffic>
   ```
