@@ -10,7 +10,7 @@ class TrafficPrediction(APIView):
 
     def post(self, request):
         input_data = request.data
-
+        print("收到的請求資料:", input_data)
         # 確認輸入是 list 且有四筆資料
         if not isinstance(input_data, list) or len(input_data) != 4:
             return Response({"error": "請傳入四筆路口特徵資料的清單"}, status=status.HTTP_400_BAD_REQUEST)
@@ -27,6 +27,7 @@ class TrafficPrediction(APIView):
             # 東西向是第 0 與 1 筆，南北向是第 2 與 3 筆
             east_west_max = max(preds[0], preds[1])
             south_north_max = max(preds[2], preds[3])
+
 
             # 設定最小和最大秒數限制
             MIN_SECONDS = 40  # 最少40秒
