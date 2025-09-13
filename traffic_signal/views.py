@@ -4,16 +4,19 @@ from rest_framework import status
 from django.db import transaction
 from .models import Group, Intersection
 from .ml.predictor import Predictor
-import uuid
 
 predictor = Predictor()  # 初始化一次
 
 
 class TrafficPrediction(APIView):
+    """
+    交通號誌預測 API
+    接收四個路口的交通資料，進行預測並儲存結果
+    """
 
     def post(self, request):
         input_data = request.data
-        print("收到的請求資料:", input_data)
+        print(f"收到的輸入資料: {input_data}")
 
         # 確認輸入是 list 且有四筆資料
         if not isinstance(input_data, list) or len(input_data) != 4:
@@ -23,8 +26,7 @@ class TrafficPrediction(APIView):
 
         try:
             # 使用預測器取得秒數
-            print("收到的輸入資料:", input_data)
-            preds = predictor.predict_batch(input_data)  # e.g. array([東_秒數1, 西_秒數2, 南_秒數3, 北_秒數4])
+            preds = predictor.predict_batch(input_data)
 
             # 驗證預測結果
             if len(preds) != 4:
@@ -43,8 +45,7 @@ class TrafficPrediction(APIView):
             east_west_seconds = max(MIN_SECONDS, min(int(east_west_max), MAX_SECONDS))
             south_north_seconds = max(MIN_SECONDS, min(int(south_north_max), MAX_SECONDS))
 
-            print(f"東西向最大秒數: {east_west_seconds}")
-            print(f"南北向最大秒數: {south_north_seconds}")
+            print(f"預測結果 - 東西向: {east_west_seconds} 秒, 南北向: {south_north_seconds} 秒")
 
             # 使用事務來確保資料一致性
             with transaction.atomic():
@@ -87,7 +88,6 @@ class TrafficPrediction(APIView):
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
-            print(f"預測錯誤: {str(e)}")
             return Response({
                 "error": f"預測處理失敗: {str(e)}"
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
