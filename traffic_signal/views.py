@@ -742,10 +742,16 @@ class TrafficTimeSeriesView(APIView):
         3. 長期趨勢分析：
            GET /api/traffic/timeseries/?days=30&metric=predictions&format=json
 
+        4. 指定日期範圍查詢（優先於 days 參數）：
+           GET /api/traffic/timeseries/?start_date=2024-01-01&end_date=2024-01-31&metric=predictions&format=json
+
+        5. 單一日期查詢：
+           GET /api/traffic/timeseries/?start_date=2024-01-15&end_date=2024-01-15&metric=traffic_volume&format=json
+
         回傳範例1（預測序列）：
         {
           "metric": "predictions",
-          "period": "7 days",
+          "period": "2024-01-01 ~ 2024-01-31",
           "data_points": 168,
           "time_series": [
             {
@@ -780,17 +786,39 @@ class TrafficTimeSeriesView(APIView):
         """
         try:
             # 參數處理
+            import re
             days = int(request.query_params.get('days', 7))
             interval = request.query_params.get('interval', 'hour')  # hour, day
             metric = request.query_params.get('metric', 'predictions')  # predictions, traffic_volume, speed
+            start_date_str = request.query_params.get('start_date')
+            end_date_str = request.query_params.get('end_date')
 
-            end_date = datetime.now()
-            start_date = end_date - timedelta(days=days)
+            # 日期格式驗證 YYYY-MM-DD
+            date_pattern = r'^\d{4}-\d{2}-\d{2}$'
+            now = datetime.now()
+
+            # 優先使用日期範圍參數，否則使用 days 參數
+            if start_date_str and re.match(date_pattern, start_date_str):
+                start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+            else:
+                start_date = now - timedelta(days=days)
+
+            if end_date_str and re.match(date_pattern, end_date_str):
+                # end_date 設定為當天的 23:59:59
+                end_date = datetime.strptime(end_date_str, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
+            else:
+                end_date = now
 
             groups = Group.objects.filter(
                 timestamp__gte=start_date,
                 timestamp__lte=end_date
             ).order_by('timestamp')
+
+            # 期間顯示字串
+            if start_date_str and end_date_str:
+                period_str = f"{start_date_str} ~ {end_date_str}"
+            else:
+                period_str = f"{days} days"
 
             if metric == 'predictions':
                 # 預測秒數時間序列
@@ -805,7 +833,7 @@ class TrafficTimeSeriesView(APIView):
 
                 return Response({
                     "metric": "predictions",
-                    "period": f"{days} days",
+                    "period": period_str,
                     "data_points": len(time_series),
                     "time_series": time_series
                 })
@@ -831,7 +859,7 @@ class TrafficTimeSeriesView(APIView):
 
                 return Response({
                     "metric": "traffic_volume",
-                    "period": f"{days} days",
+                    "period": period_str,
                     "data_points": len(time_series),
                     "time_series": time_series
                 })
