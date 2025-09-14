@@ -1,12 +1,10 @@
 from django.urls import path
-from . import views
+from . import views_save, views_query
 
 urlpatterns = [
-    # 原有的API端點
-    path('predict/', views.TrafficPrediction.as_view(), name='traffic_prediction'),
-    path('data/', views.TrafficDataView.as_view(), name='traffic_data'),
+    # 儲存資料 API
+    path('predict/', views_save.TrafficPrediction.as_view(), name='traffic_prediction'),
 
-    # 新增視覺化API端點
-    path('analytics/', views.TrafficAnalyticsView.as_view(), name='traffic_analytics'),
-    path('timeseries/', views.TrafficTimeSeriesView.as_view(), name='traffic_timeseries'),
+    # 統一查詢資料 API - 支援日期範圍搜尋，同時取出 Group + Intersection 資料
+    path('query/', views_query.TrafficQueryView.as_view(), name='traffic_query'),
 ]

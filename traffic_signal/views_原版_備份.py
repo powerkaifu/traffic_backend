@@ -192,10 +192,6 @@ class TrafficDataView(APIView):
           ]
         }
 
-        錯誤回傳：
-        {
-          "error": "找不到指定的批次資料"
-        }
         """
         try:
             # 取得查詢參數
