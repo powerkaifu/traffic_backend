@@ -101,7 +101,7 @@ class Predictor:
 
     return X_new_final.values.astype(float)
 
-  def predict_with_clipping(self, X_new_data, min_val = 40.0, max_val = 99.0):
+  def predict_with_clipping(self, X_new_data, min_val = None, max_val = 99.0):
     predicted = self.model.predict(X_new_data)
     clipped = np.clip(predicted, min_val, max_val)
     final = np.round(clipped).astype(int)

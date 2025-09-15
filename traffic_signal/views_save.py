@@ -82,12 +82,11 @@ class TrafficPrediction(APIView):
             east_west_max = max(preds[0], preds[1])
             south_north_max = max(preds[2], preds[3])
 
-            # 設定最小和最大秒數限制
-            MIN_SECONDS = 40  # 最少40秒
-            MAX_SECONDS = 120  # 最多120秒
+            # 只限制最大秒數，移除最小秒數限制
+            MAX_SECONDS = 99  # 最多99秒
 
-            east_west_seconds = max(MIN_SECONDS, min(int(east_west_max), MAX_SECONDS))
-            south_north_seconds = max(MIN_SECONDS, min(int(south_north_max), MAX_SECONDS))
+            east_west_seconds = min(int(east_west_max), MAX_SECONDS)
+            south_north_seconds = min(int(south_north_max), MAX_SECONDS)
 
             print(f"預測結果 - 東西向: {east_west_seconds} 秒, 南北向: {south_north_seconds} 秒")
 
