@@ -88,7 +88,18 @@ class TrafficPrediction(APIView):
             east_west_seconds = min(int(east_west_max), MAX_SECONDS)
             south_north_seconds = min(int(south_north_max), MAX_SECONDS)
 
-            print(f"預測結果 - 東西向: {east_west_seconds} 秒, 南北向: {south_north_seconds} 秒")
+            # 詳細打印預測結果
+            print("\n" + "=" * 80)
+            print("🟢 交通信號預測結果")
+            print("=" * 80)
+            print(f"路口 0 (東方向 VD_ID={input_data[0].get('VD_ID')}): {int(preds[0])} 秒")
+            print(f"路口 1 (西方向 VD_ID={input_data[1].get('VD_ID')}): {int(preds[1])} 秒")
+            print(f"路口 2 (南方向 VD_ID={input_data[2].get('VD_ID')}): {int(preds[2])} 秒")
+            print(f"路口 3 (北方向 VD_ID={input_data[3].get('VD_ID')}): {int(preds[3])} 秒")
+            print("-" * 80)
+            print(f"📊 東西向最大綠燈秒數: {east_west_seconds} 秒 (最大({int(preds[0])}, {int(preds[1])}))")
+            print(f"📊 南北向最大綠燈秒數: {south_north_seconds} 秒 (最大({int(preds[2])}, {int(preds[3])}))")
+            print("=" * 80 + "\n")
 
             # 使用事務來確保資料一致性
             with transaction.atomic():
