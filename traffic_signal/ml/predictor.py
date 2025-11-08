@@ -127,7 +127,7 @@ class Predictor:
     new_data_df_processed['Speed_L'] = new_data_df_processed['Speed_L'] * 2.5
     new_data_df_processed['Speed_T'] = new_data_df_processed['Speed_T'] * 2.5
 
-    new_data_df_processed['IsPeakHour'] = new_data_df_processed['IsPeakHour'] * 0.6
+    new_data_df_processed['IsPeakHour'] = new_data_df_processed['IsPeakHour'] * 0.2
     new_data_df_processed['Hour'] = new_data_df_processed['Hour'] * 0.8
     new_data_df_processed['DayOfWeek'] = new_data_df_processed['DayOfWeek'] * 0.9
     new_data_df_processed['Minute'] = new_data_df_processed['Minute'] * 0.7
@@ -147,7 +147,7 @@ class Predictor:
 
     return X_new_final.values.astype(float)
 
-  def predict_with_clipping(self, X_new_data, min_val = 30.0, max_val = 99.0):
+  def predict_with_clipping(self, X_new_data, min_val = 40.0, max_val = 99.0):
     """
       使用模型進行預測，並將結果裁剪到指定範圍內。
       """
