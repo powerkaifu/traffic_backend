@@ -127,7 +127,9 @@ class Predictor:
     new_data_df_processed['Speed_L'] = new_data_df_processed['Speed_L'] * 2.5
     new_data_df_processed['Speed_T'] = new_data_df_processed['Speed_T'] * 2.5
 
-    new_data_df_processed['IsPeakHour'] = new_data_df_processed['IsPeakHour'] * 0.2
+    new_data_df_processed['IsPeakHour'] = new_data_df_processed['IsPeakHour'] * 0.1  # 0.6 -> 0.1
+    new_data_df_processed['Occupancy'] = new_data_df_processed['Occupancy'] * 0.1  # 略微減弱
+
     new_data_df_processed['Hour'] = new_data_df_processed['Hour'] * 0.8
     new_data_df_processed['DayOfWeek'] = new_data_df_processed['DayOfWeek'] * 0.9
     new_data_df_processed['Minute'] = new_data_df_processed['Minute'] * 0.7
